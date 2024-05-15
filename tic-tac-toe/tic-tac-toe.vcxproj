@@ -149,7 +149,6 @@
     <ClInclude Include="tictactoe.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="img\TTTboard.png" />
     <Image Include="TTTboard.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

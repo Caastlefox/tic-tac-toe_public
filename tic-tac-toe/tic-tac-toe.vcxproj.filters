@@ -25,9 +25,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="img\TTTboard.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="TTTboard.png">
       <Filter>Resource Files</Filter>
     </Image>

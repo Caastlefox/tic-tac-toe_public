@@ -6,19 +6,20 @@
 class Button {
 	private:
 		std::string name;
-		sf::Sprite sprite;
 		sf::IntRect rectangle;
 		int state{};
 
-	public:
 
-		Button(std::string name, sf::IntRect rect, sf::Texture texture, sf::Vector2f position)
+	public:
+		sf::Sprite sprite;
+		Button(std::string name, sf::IntRect rect, sf::Texture& texture, sf::Vector2f position)
 		{
 			this->name = name;
 			this->rectangle = rect;
 			sprite.setTexture(texture);
 			sprite.setTextureRect(rect);
 			sprite.setPosition(position);
+
 		};
 		Button() {};
 		~Button() {};
@@ -34,6 +35,30 @@ class Button {
 		void change_state(int state)
 		{
 			this->state = state;
+			
+			switch (state) {
+			case 0:
+				rectangle = sf::IntRect(0, 0, 130, 130);
+				this->sprite.setTextureRect(rectangle);
+				break;
+			case 1:
+				rectangle = sf::IntRect(0, 600, 130, 130);
+				this->sprite.setTextureRect(rectangle);
+				std::cout << "executed";
+				break;
+			case 2:
+				rectangle = sf::IntRect(150, 600, 130, 130);
+				this->sprite.setTextureRect(rectangle);
+				std::cout << "executed";
+				break;
+			default:
+				rectangle = sf::IntRect(0, 0, 130, 130);
+				this->sprite.setTextureRect(rectangle);
+				break;
+			}
+
+			
+
 		};
 		int what_was_clicked(int xposition, int yposition, int player)
 		{
@@ -116,6 +141,7 @@ public:
 	 if (x < 570 and x > 420 and y > 200 and y < 350) { button_list[6].change_state(player_flag);}
 	 if (x < 570 and x > 420 and y > 400 and y < 550) { button_list[7].change_state(player_flag);}
 	 if (x < 570 and x > 420 and y > 600 and y < 750) { button_list[8].change_state(player_flag);}
+	 std::cout << player_flag;
 	 /*
 	 if (pos[num] != 0) {return;}
 	 pos[num] = player_flag;
@@ -123,7 +149,7 @@ public:
 	 */
 	 if (player_flag == 1) {player_flag = 2; return;}
 	 player_flag = 1;
-	 
+	 return;
  }
 
  bool Board::win_check() {
@@ -218,6 +244,10 @@ public:
 	 window.clear(sf::Color::Black);
 	 window.draw(title);
 	 window.draw(main_sprite);
+	 for (int i = 0; i < 9; i++) {
+		 window.draw(button_list[i].sprite);
+	 }
+
 	 window.display();
  }
 
