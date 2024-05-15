@@ -1,6 +1,6 @@
-#include <list>
 #include "tictactoe.h"
-
+#include <thread>
+#include <chrono>
 int main()
 {
     // ------------------------------INITIALIZE-----------------------
@@ -18,23 +18,11 @@ int main()
         // error...
         std::cout << "Texture loading error";
     }   
-
-    //std::list <Button> button_list;
-    //button_list.push_back(Button("Button1",sf::IntRect(0,0,130,130),board_texture,sf::Vector2f(20,200)));
-    /*/X 20 170 220 370 420
-    //Y 350 400 550 600 */
-    //button_list.push_back(Button("Button2",sf::IntRect(0,0,130,130),board_texture,sf::Vector2f(220,200)));
-    //button_list.push_back(Button("Button3",sf::IntRect(0,0,130,130),board_texture,sf::Vector2f(420,200)));
-    //button_list.push_back(Button("Button4",sf::IntRect(0,0,130,130),board_texture,sf::Vector2f(20,400)));
-    //button_list.push_back(Button("Button5",sf::IntRect(0,0,130,130),board_texture,sf::Vector2f(220,400)));
-    //button_list.push_back(Button("Button6",sf::IntRect(0,0,130,130),board_texture,sf::Vector2f(420,400)));
-    //button_list.push_back(Button("Button7",sf::IntRect(0,0,130,130),board_texture,sf::Vector2f(20,600)));
-    //button_list.push_back(Button("Button8",sf::IntRect(0,0,130,130),board_texture,sf::Vector2f(220,600)));
-    //button_list.push_back(Button("Button9",sf::IntRect(0,0,130,130),board_texture,sf::Vector2f(420,600)));
-   
+    
+    
     Board board(MyFont , board_texture);
-
-    board.win_check();
+    bool win_flag = false;
+    
     // main game loop
     while (window.isOpen()) {
         // ------------------------------UPDATE-----------------------
@@ -55,9 +43,9 @@ int main()
                 {
                     if (event.mouseButton.button == sf::Mouse::Left)
                     {
-                        std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-                        std::cout << "mouse y: " << event.mouseButton.y << std::endl;
-                        board.play(event.mouseButton.x, event.mouseButton.y);
+                        //std::cout << "mouse x: " << event.mouseButton.x << std::endl;
+                        //std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+                        win_flag = board.play(event.mouseButton.x, event.mouseButton.y);
                     }
                     break;
                 }
@@ -65,12 +53,9 @@ int main()
                     break;
             }
         }
-
-
-
         // ------------------------------DRAW-----------------------
-        board.draw(window);
-
+       board.draw(window);
+       if (win_flag) { std::this_thread::sleep_for(std::chrono::milliseconds(2000)); return 0; }
     }
 
 
